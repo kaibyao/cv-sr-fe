@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    // "noEmit": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "module": "commonjs",
+    "plugins": [{ "name": "typescript-plugin-tw-template" }],
+    "target": "es6"
+  },
+  "include": ["./src/server/"]
+}

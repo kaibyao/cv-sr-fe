@@ -1,0 +1,27 @@
+{
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
+    "babel-plugin-macros",
+    [
+      "@emotion/babel-plugin-jsx-pragmatic",
+      {
+        "export": "jsx",
+        "import": "__cssprop",
+        "module": "@emotion/core"
+      }
+    ],
+    ["@babel/plugin-transform-react-jsx", { "pragma": "__cssprop" }],
+    "react-hot-loader/babel"
+  ],
+  "presets": [
+    ["@babel/preset-env", { "modules": false }],
+    "@babel/preset-typescript",
+    "@babel/preset-react",
+    "@emotion/babel-preset-css-prop"
+  ]
+}
