@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // state to keep track of:
 //    mouse position
@@ -7,32 +7,32 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 //    whether drawing is stopped (i guess that's the same as the inverse of whether we started drawing)
 
 export interface State {
-  // mouseX: number;
-  // mouseY: number;
   isDrawEnabled: boolean;
   hasDrawStarted: boolean;
+  windowHeight: number;
+  windowWidth: number;
 }
 
 const initialState: State = {
-  // mouseX: -1,
-  // mouseY: -1,
   isDrawEnabled: false,
   hasDrawStarted: false,
+  windowHeight: window.innerHeight,
+  windowWidth: window.innerWidth,
 };
 
 const stateSlice = createSlice({
   name: "state",
   initialState,
   reducers: {
-    // setMousePosition: {
-    //   reducer(state, action: PayloadAction<{ x: number; y: number }>) {
-    //     state.mouseX = action.payload.x;
-    //     state.mouseY = action.payload.y;
-    //   },
-    //   prepare({ x, y }: { x: number; y: number }) {
-    //     return { payload: { x, y } };
-    //   },
-    // },
+    saveWindowDimensions: {
+      reducer(state, action: PayloadAction<{ w: number; h: number }>) {
+        state.windowWidth = action.payload.w;
+        state.windowHeight = action.payload.h;
+      },
+      prepare({ w, h }: { w: number; h: number }) {
+        return { payload: { w, h } };
+      },
+    },
 
     setDrawEnabled: (state, action) => {
       state.isDrawEnabled = action.payload;

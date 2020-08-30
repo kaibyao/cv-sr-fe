@@ -9,7 +9,7 @@ export function Title(): React.ReactElement {
   return (
     <div
       className="titles"
-      tw="transition-opacity duration-300 pointer-events-none select-none"
+      tw="transition-opacity duration-150 pointer-events-none select-none"
       css={
         isDrawingModeEnabled
           ? css`
@@ -28,6 +28,8 @@ export function Title(): React.ReactElement {
       </h1>
       <div className="subtitle" tw="ml-4 text-xl">
         Press ‘D’ to start drawing. Press ‘D’ again to stop.
+        <br />
+        Press ‘C’ to clear the board when not drawing.
       </div>
     </div>
   );
