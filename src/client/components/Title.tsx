@@ -3,6 +3,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import "twin.macro";
 
+/**
+ * What is the `tw` prop?
+ * `tw` is a prop enabled by `twin.macro` and allows for any element to use tailwind css classes (see https://tailwindcss.com/docs), which allows for quick styling of elements.
+ */
+
 export function Title(): React.ReactElement {
   const isDrawingModeEnabled = useSelector((state) => state.isDrawEnabled);
 
