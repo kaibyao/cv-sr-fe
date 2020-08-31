@@ -1,14 +1,13 @@
-import { MutableRefObject, useEffect, useRef } from "react";
+import debounce from "lodash/debounce";
+import React, { MutableRefObject, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { actions, State, store } from "./state";
+import { actions, State, store } from "../state";
+import { Board } from "./Board";
 
 /**
- * Initiates window event tracking so that certain hotkeys will enable drawing or clear the board.
- *
- * @export
- * @returns {MutableRefObject<HTMLCanvasElement>}
+ * HOC that wraps <Board /> with window event listeners.
  */
-export function withCanvasEventsRef(): MutableRefObject<HTMLCanvasElement> {
+export function BoardWithDrawingMode(): JSX.Element {
   const canvasRef: MutableRefObject<HTMLCanvasElement> = useRef(null);
 
   const isDrawEnabled = useSelector((state: State) => state.isDrawEnabled);
@@ -52,20 +51,14 @@ export function withCanvasEventsRef(): MutableRefObject<HTMLCanvasElement> {
       );
     }
 
-    let rafId;
-    function saveWithRefreshRate() {
-      rafId = window.requestAnimationFrame(saveNewDimensions);
-    }
+    // so we aren't causing unnecessary jank when resizing
+    const debouncedSave = debounce(saveNewDimensions, 200);
 
-    window.addEventListener("resize", saveWithRefreshRate);
+    window.addEventListener("resize", debouncedSave);
     return () => {
-      window.removeEventListener("resize", saveWithRefreshRate);
-
-      if (rafId) {
-        window.cancelAnimationFrame(rafId);
-      }
+      window.removeEventListener("resize", debouncedSave);
     };
   }, [windowHeight, windowWidth]);
 
-  return canvasRef;
+  return <Board ref={canvasRef} />;
 }

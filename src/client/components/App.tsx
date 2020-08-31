@@ -3,7 +3,7 @@ import { hot } from "react-hot-loader/root";
 import { Provider } from "react-redux";
 import "twin.macro";
 import { store } from "../state";
-import { Board } from "./Board";
+import { BoardWithDrawingMode } from "./BoardWithDrawingMode";
 import { GlobalCss } from "./GlobalCss";
 import { Title } from "./Title";
 
@@ -12,7 +12,7 @@ function AppCore(): JSX.Element {
     <Provider store={store}>
       <GlobalCss />
 
-      <Board />
+      <BoardWithDrawingMode />
 
       <Title />
     </Provider>
