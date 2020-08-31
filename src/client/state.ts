@@ -1,10 +1,8 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // state to keep track of:
-//    mouse position
 //    whether drawing is enabled
 //    whether we started drawing
-//    whether drawing is stopped (i guess that's the same as the inverse of whether we started drawing)
 
 export interface State {
   isDrawEnabled: boolean;

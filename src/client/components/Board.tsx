@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import "twin.macro";
+import { draw, newStroke } from "../draw";
 import { actions, State, store } from "../state";
 import { ws } from "../websocket";
 
@@ -26,23 +27,30 @@ export const Board = React.forwardRef<HTMLCanvasElement>((_props, ref) => {
 
       if (!hasDrawStarted) {
         // initiate the start of a new canvas path/line.
-        ctx.moveTo(x, y);
-        ctx.lineCap = "round"; // smooth lines
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = "#4bd1c4";
-        ctx.beginPath();
+        newStroke(ctx, x, y);
 
         store.dispatch(actions.setDrawStarted(true));
+
+        ws.send(
+          JSON.stringify({
+            type: "start",
+            x,
+            y,
+          }),
+        );
       }
 
       // smooth drawing
       window.requestAnimationFrame(() => {
-        ctx.lineTo(x, y);
-        ctx.stroke();
+        draw(ctx, x, y);
+
+        // TODO: future optimization: batch all strokes until current draw has finished, then send the batched strokes.
+        // TODO: could just send text separated by delimiters. would probably be faster than encoding/decoding json.
 
         // send drawing data to others connected to server.
         ws.send(
           JSON.stringify({
+            type: "draw",
             x,
             y,
           }),
@@ -51,6 +59,12 @@ export const Board = React.forwardRef<HTMLCanvasElement>((_props, ref) => {
     } else if (hasDrawStarted) {
       // finish drawing
       store.dispatch(actions.setDrawStarted(false));
+
+      ws.send(
+        JSON.stringify({
+          type: "stop",
+        }),
+      );
     }
   }
 

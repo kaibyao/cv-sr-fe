@@ -1,7 +1,9 @@
 import debounce from "lodash/debounce";
 import React, { MutableRefObject, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { clear } from "../draw";
 import { actions, State, store } from "../state";
+import { ws } from "../websocket";
 import { Board } from "./Board";
 
 /**
@@ -24,7 +26,12 @@ export function BoardWithDrawingMode(): JSX.Element {
       switch (e.keyCode) {
         case 67: // C
           if (!isDrawEnabled) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            clear(ctx, canvas.width, canvas.height);
+            ws.send(
+              JSON.stringify({
+                type: "clear",
+              }),
+            );
           }
           break;
         case 68: // D

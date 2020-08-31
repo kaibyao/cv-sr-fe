@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import { Server } from "ws";
+import { OPEN, Server } from "ws";
 import { routes } from "./routes";
 
 // websocket server
@@ -11,7 +11,7 @@ wss.on("connection", function connection(ws /*, req*/) {
   ws.on("message", function incoming(data) {
     console.log(`Received: ${data}`);
     wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
+      if (client !== ws && client.readyState === OPEN) {
         console.log(`Sending: ${data}`);
         client.send(data);
       }

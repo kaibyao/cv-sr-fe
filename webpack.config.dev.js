@@ -20,9 +20,12 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
 
-  entry: ["react-hot-loader/patch", "./src/client/app.tsx"],
+  entry: {
+    app: ["react-hot-loader/patch", "./src/client/app.tsx"],
+    observer: ["./src/client/observer.ts"],
+  },
   output: {
-    filename: "app.js",
+    filename: "[name].js",
     path: path.resolve(__dirname, "../priv/static/js"),
     publicPath: "http://localhost:8080/",
   },
