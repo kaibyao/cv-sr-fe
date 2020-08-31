@@ -13,6 +13,16 @@ module.exports = {
     inline: true,
   },
 
+  entry: {
+    app: ["react-hot-loader/patch", "./src/client/app.tsx"],
+    observer: ["./src/client/observer.js"],
+  },
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "../priv/static/js"),
+    publicPath: "http://localhost:8080/",
+  },
+
   resolve: {
     alias: {
       "react-dom": "@hot-loader/react-dom",
@@ -20,15 +30,6 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
 
-  entry: {
-    app: ["react-hot-loader/patch", "./src/client/app.tsx"],
-    observer: ["./src/client/observer.ts"],
-  },
-  output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "../priv/static/js"),
-    publicPath: "http://localhost:8080/",
-  },
   module: {
     rules: [
       {

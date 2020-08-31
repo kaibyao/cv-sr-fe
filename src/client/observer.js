@@ -8,7 +8,7 @@ canvasEl.width = window.innerWidth;
 
 document.getElementById("app").appendChild(canvasEl);
 
-const ctx: CanvasRenderingContext2D = canvasEl.getContext("2d");
+const ctx = canvasEl.getContext("2d");
 
 // websocket: copy all actions made by the artist.
 ws.onmessage = (e) => {

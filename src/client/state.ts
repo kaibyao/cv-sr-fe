@@ -1,7 +1,7 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // state to keep track of:
-//    whether drawing is enabled
+//    whether drawing mode is enabled
 //    whether we started drawing
 
 export interface State {

@@ -9,10 +9,10 @@ wss.on("connection", function connection(ws /*, req*/) {
   console.log(`Connection started.`);
 
   ws.on("message", function incoming(data) {
-    console.log(`Received: ${data}`);
+    // console.log(`Received: ${data}`);
     wss.clients.forEach(function each(client) {
       if (client !== ws && client.readyState === OPEN) {
-        console.log(`Sending: ${data}`);
+        // console.log(`Sending: ${data}`);
         client.send(data);
       }
     });
